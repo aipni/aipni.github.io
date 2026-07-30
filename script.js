@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mouse Tracking Glow (Performance Optimized)
+    // 1. Mouse Tracking Glow (Performance Throttled)
     const glow = document.querySelector('.cursor-glow');
     let mouseX = 0, mouseY = 0;
     let isMoving = false;
@@ -18,17 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } else if (glow) {
-        // Hide glow entirely on touch screens
+        // Hide glow element on touch devices
         glow.style.display = 'none';
     }
 
-    // 2. Intersection Observer for Scroll Reveals
+    // 2. Intersection Observer for Smooth Scroll Reveal
     const revealElements = document.querySelectorAll('.reveal');
     
     if (revealElements.length > 0) {
         const revealOptions = { 
-            threshold: 0.15, 
-            rootMargin: "0px 0px -50px 0px" 
+            threshold: 0.12, 
+            rootMargin: "0px 0px -40px 0px" 
         };
 
         const observer = new IntersectionObserver((entries, obs) => {
