@@ -5,10 +5,10 @@
     --primary: #00d4ff;
     --primary-glow: rgba(0, 212, 255, 0.15);
     --text: #ffffff;
-    --text-muted: #94a3b8;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-hover: rgba(255, 255, 255, 0.06);
-    --border: rgba(255, 255, 255, 0.1);
+    --text-muted: #cbd5e1;
+    --glass: rgba(15, 23, 42, 0.65);
+    --glass-hover: rgba(15, 23, 42, 0.85);
+    --border: rgba(255, 255, 255, 0.12);
     --bg-dark: #05070a;
 }
 
@@ -24,7 +24,7 @@ html {
 
 body {
     background-color: var(--bg-dark);
-    background-image: linear-gradient(rgba(5, 7, 10, 0.88), rgba(5, 7, 10, 0.88)), 
+    background-image: linear-gradient(rgba(5, 7, 10, 0.90), rgba(5, 7, 10, 0.90)), 
                       url('https://mylogo.s3.us-south.cloud-object-storage.appdomain.cloud/analyst.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -36,7 +36,21 @@ body {
 }
 
 /* ==========================================================================
-   2. Interactive Elements & Layout Containers
+   2. Global Link Styles (Fixes default browser blue/purple links)
+   ========================================================================== */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* ==========================================================================
+   3. Interactive Elements & Layout Containers
    ========================================================================== */
 .cursor-glow {
     position: fixed;
@@ -81,14 +95,14 @@ body {
 }
 
 /* ==========================================================================
-   3. Navigation Bar
+   4. Navigation Bar
    ========================================================================== */
 .glass-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    background: rgba(5, 7, 10, 0.85);
+    background: rgba(5, 7, 10, 0.92);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border);
@@ -99,12 +113,14 @@ body {
 
 .logo {
     font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: 2px;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
 }
 
 .logo span {
     color: var(--primary);
+    font-weight: 600;
 }
 
 .nav-links {
@@ -113,21 +129,19 @@ body {
     gap: 25px;
 }
 
-.nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
+.nav-links a:not(.contact-pill) {
+    color: #e2e8f0;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:not(.contact-pill):hover {
     color: var(--primary);
 }
 
 .contact-pill {
     background: var(--primary);
-    color: #000 !important;
+    color: #000000 !important;
     padding: 8px 20px;
     border-radius: 50px;
     font-weight: 700 !important;
@@ -136,14 +150,15 @@ body {
 
 .contact-pill:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    text-shadow: none !important;
 }
 
 /* ==========================================================================
-   4. Hero Header & Certification Banner
+   5. Hero Header & Certification Banner
    ========================================================================== */
 .hero {
-    min-height: 70vh;
+    min-height: 65vh;
     padding: 80px 0 60px;
     display: flex;
     align-items: center;
@@ -167,30 +182,20 @@ body {
 }
 
 .hero h2 {
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--primary);
     font-weight: 600;
     margin-bottom: 20px;
 }
 
 .contact-bar {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     margin: 15px 0 25px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-}
-
-.contact-bar a {
-    color: var(--text);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.contact-bar a:hover {
-    color: var(--primary);
+    gap: 12px;
 }
 
 .status-badge {
@@ -222,7 +227,7 @@ body {
 
 .cert-banner {
     margin-top: 20px;
-    background: rgba(10, 15, 25, 0.7);
+    background: rgba(10, 15, 25, 0.8);
     border: 1px solid var(--border);
     padding: 12px 24px;
     border-radius: 12px;
@@ -234,7 +239,7 @@ body {
 }
 
 /* ==========================================================================
-   5. Dashboard Metrics Grid
+   6. Dashboard Metrics Grid
    ========================================================================== */
 .stats-grid {
     display: grid;
@@ -247,7 +252,7 @@ body {
 }
 
 .stat-tile {
-    background: rgba(10, 15, 25, 0.85);
+    background: rgba(10, 15, 25, 0.88);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border);
@@ -272,7 +277,7 @@ body {
 }
 
 /* ==========================================================================
-   6. Glassmorphism Cards & Experience Timeline
+   7. Glassmorphism Cards & Experience Timeline
    ========================================================================== */
 .grid {
     display: grid;
@@ -305,7 +310,7 @@ body {
 .glass-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .experience-stack {
@@ -367,14 +372,14 @@ body {
     font-size: 0.75rem;
     background: rgba(0, 212, 255, 0.08);
     color: var(--primary);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    border: 1px solid rgba(0, 212, 255, 0.25);
     padding: 4px 10px;
     border-radius: 6px;
     font-weight: 600;
 }
 
 /* ==========================================================================
-   7. Scroll Animations & Reveal State
+   8. Scroll Animations & Reveal State
    ========================================================================== */
 .reveal {
     opacity: 0;
@@ -390,34 +395,39 @@ body {
 }
 
 /* ==========================================================================
-   8. Footer Section
+   9. Footer Section (High Contrast Readability Fix)
    ========================================================================== */
 footer {
-    text-align: center;
-    padding: 60px 0 40px;
+    background: rgba(5, 7, 10, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border);
-    margin-top: 60px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    padding: 45px 0;
+    margin-top: 80px;
+    position: relative;
+    z-index: 100;
+    text-align: center;
 }
 
 .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
 }
 
 .footer-links {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.3s ease;
+    color: #e2e8f0;
+    font-weight: 500;
 }
 
 .footer-links a:hover {
@@ -425,19 +435,15 @@ footer {
 }
 
 /* ==========================================================================
-   9. Responsive Breakpoints & Accessibility
+   10. Responsive Breakpoints & Accessibility
    ========================================================================== */
 @media (max-width: 768px) {
     .glass-nav {
         padding: 15px 5%;
     }
     
-    .nav-links {
-        gap: 15px;
-    }
-
     .nav-links a:not(.contact-pill) {
-        display: none; /* Simplifies mobile header */
+        display: none;
     }
 
     .hero {
@@ -446,7 +452,7 @@ footer {
 
     .contact-bar {
         flex-direction: column;
-        gap: 5px;
+        gap: 6px;
     }
 
     .stats-grid {
