@@ -1,27 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mouse Tracking Glow
+    // 1. Mouse Tracking Glow (Performance Optimized)
     const glow = document.querySelector('.cursor-glow');
-    window.addEventListener('mousemove', (e) => {
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
-    });
+    let mouseX = 0, mouseY = 0;
+    let isMoving = false;
 
-    // 2. Intersection Observer for Smooth Reveal
-    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
-                observer.unobserve(entry.target);
+    if (glow && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!isMoving) {
+                requestAnimationFrame(() => {
+                    glow.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                    isMoving = false;
+                });
+                isMoving = true;
             }
         });
-    }, revealOptions);
+    } else if (glow) {
+        // Hide glow entirely on touch screens
+        glow.style.display = 'none';
+    }
 
-    document.querySelectorAll('.reveal').forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(30px)";
-        el.style.transition = "all 0.8s cubic-bezier(0.2, 1, 0.3, 1)";
-        observer.observe(el);
-    });
+    // 2. Intersection Observer for Scroll Reveals
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    if (revealElements.length > 0) {
+        const revealOptions = { 
+            threshold: 0.15, 
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => observer.observe(el));
+    }
 });
